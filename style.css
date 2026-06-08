@@ -1,0 +1,1003 @@
+/* ==========================================================================
+   1. DESIGN SYSTEM VARIABLES (LIGHT/DARK MODES)
+   ========================================================================== */
+:root {
+    /* --- Light Mode Core Palette --- */
+    --bg-main: #FFFFFF;
+    --bg-subtle: #F8FAFC;
+    --navbar-bg: #1E293B;      /* Premium Dark Slate Navigation Bar */
+    --accent-blue: #2563EB;    /* Main Accent Theme Blue */
+    --text-dark: #0F172A;
+    --text-muted: #475569;
+    --text-light: #FFFFFF;
+    --card-border: #E2E8F0;
+}
+
+[data-theme="dark"] {
+    /* --- Dark Mode Core Palette --- */
+    --bg-main: #0F172A;
+    --bg-subtle: #1E293B;
+    --navbar-bg: #111827;
+    --accent-blue: #3B82F6;    /* Glowing Electric Blue for Dark Grid Sheets */
+    --text-dark: #F8FAFC;
+    --text-muted: #94A3B8;
+    --card-border: #334155;
+}
+
+/* ==========================================================================
+   2. SITE-WIDE RESET & BASE LAYOUT
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-muted);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 160px 20px 80px 20px;
+}
+
+h2 {
+    color: var(--text-dark);
+    font-size: 1.7rem;
+    margin: 60px 0 25px 0;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 22px;
+    background-color: var(--accent-blue);
+    border-radius: 2px;
+}
+
+/* ==========================================================================
+   3. FLOATING PILL NAVIGATION BAR
+   ========================================================================== */
+.nav-wrapper {
+    position: fixed;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    padding: 0 20px;
+}
+
+.navbar {
+    background-color: var(--navbar-bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border-radius: 40px; 
+    width: 100%;
+    max-width: 950px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease;
+}
+
+.nav-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-item {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 30px;
+    transition: all 0.25s ease;
+}
+
+.nav-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-item.active {
+    background-color: var(--accent-blue);
+    color: var(--text-light);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* --- Navigation Logo Container --- */
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between your logo mark and your text name */
+    text-decoration: none;
+}
+
+/* --- Brand Logo Image Metrics --- */
+.brand-logo-img {
+    width: 32px;          /* Clean, subtle height matching standard navbar limits */
+    height: 32px;
+    object-fit: contain;  /* Safeguards image proportions from squeezing */
+    border-radius: 6px;   /* Optional: slight corner smoothing if your logo is square */
+}
+
+.nav-logo span {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #ffffff;
+    letter-spacing: -0.2px;
+}
+
+.theme-toggle {
+    background: transparent;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+}
+
+.theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   4. HERO PROFILE INTRO LAYOUT BLOCK (CENTERED CONFIGURATION)
+   ========================================================================== */
+.hero-layout-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.image-pane-centered {
+    margin-bottom: 24px;
+}
+
+.profile-circle {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--accent-blue);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+}
+
+.greeting-badge {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+}
+
+.headline-centered {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+}
+
+.highlight-text {
+    background-color: rgba(37, 99, 235, 0.08); 
+    padding: 2px 10px;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.bio-centered {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-bottom: 32px;
+    line-height: 1.7;
+}
+
+.action-centered {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--accent-blue);
+    color: var(--text-light);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.btn-secondary {
+    background-color: var(--bg-subtle);
+    color: var(--text-dark);
+    border: 1px solid var(--card-border);
+}
+
+.btn-secondary:hover {
+    transform: translateY(-2px);
+    background-color: var(--card-border);
+}
+
+/* ==========================================================================
+   5. HORIZONTAL SCROLLING TECHNICAL STACK CARDS
+   ========================================================================== */
+   .tech-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px; /* Space between the logo box and the text label below */
+    flex-shrink: 0;
+}
+
+/* The square icon container */
+.logo-wrapper {
+    width: 80px;
+    height: 80px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--card-border);
+    border-radius: 18px; /* Smooth squircle-like corners */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition: all 0.25s ease;
+}
+
+/* Official SVG Logo Styling */
+.logo-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.25s ease;
+}
+
+/* Text label positioned underneath */
+.tech-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    text-align: center;
+}
+
+/* Hover Effects */
+.tech-box:hover .logo-wrapper {
+    border-color: var(--accent-blue);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.1);
+}
+
+.tech-box:hover .logo-wrapper img {
+    transform: scale(1.05);
+}
+
+/* Dark Mode adjustment for SVGs that default to pure black */
+[data-theme="dark"] .logo-wrapper img {
+    filter: drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.8));
+}
+.skills-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.skill-category-card {
+    background-color: var(--bg-subtle);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+}
+
+.skill-category-card h3 {
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.scroll-track {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 4px 4px 12px 4px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--card-border) transparent;
+}
+
+.scroll-track::-webkit-scrollbar {
+    height: 6px;
+}
+.scroll-track::-webkit-scrollbar-track {
+    background: transparent;
+}
+.scroll-track::-webkit-scrollbar-thumb {
+    background-color: var(--card-border);
+    border-radius: 10px;
+}
+
+.tech-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--card-border);
+    padding: 10px 20px;
+    border-radius: 30px;
+    flex-shrink: 0; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    transition: all 0.2s ease;
+}
+
+.tech-pill:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+}
+
+.tech-pill i {
+    font-size: 1.35rem;
+    color: var(--accent-blue);
+}
+
+.tech-pill span {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+}
+
+/* ==========================================================================
+   6. FEATURED PROJECTS GRID & INTERACTIVE MODAL OVERLAY
+   ========================================================================== */
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.project-card {
+    background-color: var(--bg-main);
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid var(--card-border);
+    transition: all 0.2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+    border-color: var(--accent-blue);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.project-title {
+    color: var(--text-dark);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.project-links a {
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.project-links a:hover {
+    text-decoration: underline;
+}
+
+.video-demo-btn {
+    background: none;
+    border: none;
+    color: var(--accent-blue);
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.video-demo-btn:hover {
+    background-color: rgba(37, 99, 235, 0.08);
+}
+
+.video-demo-btn i {
+    font-size: 1.1rem;
+}
+
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;                  /* Space between the mini logo and text */
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--card-border);
+    padding: 6px 14px;         /* Adjusted slightly for visual balance */
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    transition: all 0.2s ease;
+}
+
+/* Mini Logo image style inside project tags */
+.tag-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+}
+
+/* Dark Mode fix if your SVGs turn invisible on dark background sheets */
+[data-theme="dark"] .tag-icon {
+    filter: drop-shadow(0px 0px 1px rgba(255, 255, 255, 0.6));
+}
+
+/* Optional Hover highlight */
+.tag:hover {
+    border-color: var(--accent-blue);
+    background-color: var(--bg-main);
+}
+
+/* --- Video Popup Window (Modal Overlay) --- */
+.video-modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.8); 
+    backdrop-filter: blur(8px); 
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.video-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.video-modal-content {
+    position: relative;
+    width: 90%;
+    max-width: 500px; 
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.video-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 2100;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    transition: transform 0.2s;
+}
+
+.video-modal-close:hover {
+    transform: scale(1.1);
+}
+
+.video-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: #000;
+}
+
+.video-container video {
+    width: 100%;
+    max-height: 85vh; 
+    display: block;
+    object-fit: contain;
+}
+
+/* ==========================================================================
+   7. CONTACT FOOTER LAYOUT
+   ========================================================================== */
+.contact-section {
+    margin-top: 60px;
+}
+
+.contact-box {
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+}
+
+.contact-box h3 {
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.contact-action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.c-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.c-btn-filled {
+    background-color: var(--accent-blue);
+    color: var(--text-light);
+}
+
+.c-btn-outline {
+    background-color: var(--bg-main);
+    color: var(--text-dark);
+    border: 1px solid var(--card-border);
+}
+
+.c-btn-outline:hover {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+/* --- Project Card Bullet Points Style --- */
+.project-description-list {
+    list-style-position: outside;
+    margin: 16px 0 20px 0;      /* Top and bottom margins; 0 left margin to align with title */
+    padding-left: 18px;         /* Creates just enough room for the bullet markers to sit cleanly */
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;                  /* Clean, consistent spacing between bullet points */
+}
+
+.project-description-list li {
+    padding-left: 4px;          /* Small spacing between the bullet dot and the text */
+}
+
+.project-description-list li::marker {
+    color: var(--accent-blue);  /* Uses your theme blue for the bullet dots */
+    font-size: 1.1rem;          /* Optional: Matches the visual weight of the text nicely */
+}
+.btn-icon {
+    width: 18px;          /* Matches standard icon sizing */
+    height: 18px;
+    object-fit: contain;
+    display: inline-block;
+}
+.btn-img {
+    width: 45px;          /* Matches standard icon sizing */
+    height: 45px;
+    object-fit: contain;
+    display: inline-block;
+}
+/* ==========================================================================
+   6. CREDENTIALS & CERTIFICATIONS SECTION
+   ========================================================================== */
+.certifications-section {
+    padding: 60px 0;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Left column is slightly wider for emphasis */
+    gap: 40px;
+    margin-top: 30px;
+}
+.cert-column-left,
+.cert-column-right {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.column-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Left Column: Big Degree Card --- */
+.degree-card {
+    background-color: var(--bg-main);
+    border: 1px solid var(--card-border);
+    border-radius: 16px;
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.degree-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.institution-logo {
+    width: 54px;
+    height: 54px;
+    background-color: var(--bg-white);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border: 1px solid var(--card-border);
+}
+
+.degree-title-block h4 {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.institution-name {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.degree-details {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.cert-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* --- Right Column: Certifications Stack --- */
+.cert-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mini-cert-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    background-color: var(--bg-main);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 20px;
+    transition: all 0.25s ease;
+}
+
+.mini-cert-icon {
+    width: 44px;
+    height: 44px;
+    background-color: var(--bg-subtle);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 1px solid var(--card-border);
+    flex-shrink: 0;
+}
+
+.mini-cert-info h5 {
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    line-height: 1.3;
+}
+
+.issuer-name {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+/* --- Interactive Hover Effects --- */
+.degree-card:hover,
+.mini-cert-card:hover {
+    border-color: var(--accent-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.04);
+}
+
+/* --- Responsive Layout Breakpoint --- */
+@media (max-width: 868px) {
+    .cert-grid {
+        grid-template-columns: 1fr; /* Collapses side-by-side view into a uniform vertical stack */
+        gap: 30px;
+    }
+}
+/* --- Footers alignment configurations --- */
+.degree-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Keeps date on left, button on right */
+    margin-top: auto; /* Pushes footer to the bottom of the card */
+    padding-top: 20px;
+    border-top: 1px solid var(--card-border);
+}
+
+.mini-cert-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Keeps date on left, button on right */
+    gap: 16px;
+    margin-top: 8px;
+}
+
+/* --- Interactive View Buttons Styles --- */
+.cert-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--bg-subtle);
+    border: 1px solid var(--card-border);
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.cert-view-btn i {
+    font-size: 1.1rem;
+}
+
+.cert-view-btn:hover {
+    background-color: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* Minimal text link layout for the smaller items on the right side */
+.cert-view-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-blue);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.cert-view-link i {
+    font-size: 0.95rem;
+}
+
+.cert-view-link:hover {
+    text-decoration: underline;
+    opacity: 0.85;
+}
+
+/* --- Modal Background Overlay --- */
+.cert-modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 2000; /* High index to stay over everything else */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dim background layer */
+    backdrop-filter: blur(4px); /* Premium frosty blur layout */
+    align-items: center;
+    justify-content: center;
+}
+
+/* Show active utility class */
+.cert-modal.active {
+    display: flex;
+}
+
+/* --- Modal Content Box --- */
+.cert-modal-content {
+    background-color: #fbf8f3; /* Matches your off-white warm theme */
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 32px;
+    border-radius: 20px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    animation: modalScaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Subtle popup arrival animation */
+@keyframes modalScaleUp {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-icon-box {
+    font-size: 3rem;
+    color: #2563eb; /* Theme Accent Blue */
+    margin-bottom: 16px;
+}
+
+.cert-modal-content h3 {
+    font-size: 1.4rem;
+    color: #2d1e18;
+    margin-bottom: 10px;
+}
+
+.cert-modal-content p {
+    font-size: 0.95rem;
+    color: #8c766b;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+/* --- Modal Dismiss Button --- */
+.modal-close-btn {
+    background-color: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 10px 24px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background-color: #1d4ed8;
+}
+/* --- Bottom Right Toast Dialog --- */
+.toast-dialog {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9999; /* Ensures it sits on top of all cards and footers */
+    
+    background-color: var(--accent-blue, #2563eb); /* Uses your brand blue */
+    color: #ffffff !important;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    
+    padding: 14px 20px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
+    
+    /* Hidden by default below the screen */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease, visibility 0.3s;
+}
+
+/* Visibility Trigger State */
+.toast-dialog.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.2px;
+}
+
+.toast-icon {
+    font-size: 1.25rem;
+}
+
+/* Clean transparent close button */
+.toast-close-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.toast-close-btn:hover {
+    color: #ffffff;
+}
