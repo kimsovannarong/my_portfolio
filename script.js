@@ -94,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+
 // Close / Hide function routine
 function closeToast() {
     document.getElementById('comingSoonToast').classList.remove('show');
