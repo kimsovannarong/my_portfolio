@@ -10,11 +10,9 @@ themeBtn.addEventListener('click', () => {
     const currentTheme = document.documentElement.getAttribute('data-theme');
     if (currentTheme === 'dark') {
         document.documentElement.removeAttribute('data-theme');
-        // UPDATE HERE: Visual icon for light mode active state
         themeBtn.innerHTML = '🌙'; 
     } else {
         document.documentElement.setAttribute('data-theme', 'dark');
-        // UPDATE HERE: Visual icon for dark mode active state
         themeBtn.innerHTML = '☀️'; 
     }
 });
@@ -43,34 +41,59 @@ const observer = new IntersectionObserver((entries) => {
         }
     });
 }, observerOptions);
+
+sections.forEach(section => observer.observe(section));
+
 // --- 3. Video Demo Modal Control Engines ---
 const videoModal = document.getElementById('videoModal');
-const modalVideo = document.getElementById('modalVideo');
 
-function openVideoModal(videoSrc) {
-    // 1. Set the video file path source
-    modalVideo.src = videoSrc;
-    // 2. Display the modal layer
-    videoModal.classList.add('show');
-    // 3. Auto-play the clip
-    modalVideo.play();
+function openVideoModal(videoUrl) {
+    const modalContainer = document.getElementById('videoModal');
+    const modalBody = document.getElementById('modalBody');
+    
+    let playerHtml = '';
+
+    // Check if the link is from YouTube (Embed links or standard strings)
+    if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+        playerHtml = `
+            <div class="modal-video-wrapper" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%;">
+                <iframe 
+                    src="${videoUrl}" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 8px;">
+                </iframe>
+            </div>`;
+    } else {
+        // Fallback option for native local video formats (.mp4, .mov, etc.)
+        playerHtml = `
+            <video controls autoplay id="modalVideo" style="width:100%; border-radius:8px;">
+                <source src="${videoUrl}">
+                Your browser does not support the video tag.
+            </video>`;
+    }
+
+    modalBody.innerHTML = playerHtml;
+    modalContainer.classList.add('active');
 }
 
+// Clear out innerHTML when closing so active media streams instantly kill audio playback strings
 function closeVideoModal() {
-    // 1. Remove the active styling wrapper class
-    videoModal.classList.remove('show');
-    // 2. Instantly pause audio/video pipes
-    modalVideo.pause();
-    // 3. Clear source link to free up system memory
-    modalVideo.src = "";
+    const modalContainer = document.getElementById('videoModal');
+    const modalBody = document.getElementById('modalBody');
+    
+    modalContainer.classList.remove('active');
+    modalBody.innerHTML = ''; 
 }
 
-// Close the popup window automatically if the user clicks anywhere outside of the video frame
+// Close the popup window automatically if the user clicks anywhere outside of the video modal box layout frame
 window.addEventListener('click', (event) => {
     if (event.target === videoModal) {
         closeVideoModal();
     }
 });
+
+// --- 4. Toast Notification Manager ---
 document.addEventListener("DOMContentLoaded", function() {
     const toast = document.getElementById('comingSoonToast');
     let toastTimeout;
@@ -94,10 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
-// Close / Hide function routine
+// Close / Hide toast notification routine
 function closeToast() {
     document.getElementById('comingSoonToast').classList.remove('show');
 }
-
-sections.forEach(section => observer.observe(section));
