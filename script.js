@@ -18,9 +18,14 @@ themeBtn.addEventListener('click', () => {
 });
 
 // --- 2. Scroll Intersection Focus Detector ---
+// --- 2. Scroll Intersection Focus Detector & Manual Click Handler ---
 const sections = document.querySelectorAll('.section-target');
 const navItems = document.querySelectorAll('.nav-item');
 
+let isScrollingClick = false; // Flag to pause observer during manual click scrolling
+let scrollTimeout;
+
+// 1. Setup the Intersection Observer
 const observerOptions = {
     root: null,
     rootMargin: '-30% 0px -55% 0px', // Focus shifts when target section occupies central screen area
@@ -28,21 +33,49 @@ const observerOptions = {
 };
 
 const observer = new IntersectionObserver((entries) => {
+    // If we are currently handling a click smooth scroll, bypass observer logic entirely
+    if (isScrollingClick) return;
+
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const id = entry.target.getAttribute('id');
-            navItems.forEach(item => {
-                if (item.getAttribute('href') === `#${id}`) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
+            updateActiveState(`#${id}`);
         }
     });
 }, observerOptions);
 
 sections.forEach(section => observer.observe(section));
+
+// 2. Add Manual Click Listeners to Navigation Items
+navItems.forEach(link => {
+    link.addEventListener('click', function(e) {
+        // Prevent instant jump so smooth scrolling can run smoothly
+        const targetHref = this.getAttribute('href');
+        
+        // Turn on our safety flag to block IntersectionObserver overwriting
+        isScrollingClick = true;
+        
+        // Update styling instantly to the clicked item
+        updateActiveState(targetHref);
+
+        // Clear any leftover timeouts and reset flag after smooth scroll ends
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isScrollingClick = false;
+        }, 800); // 800ms gives your CSS/browser smooth scroll ample time to finish
+    });
+});
+
+// 3. Helper function to swap the active class smoothly
+function updateActiveState(targetHref) {
+    navItems.forEach(item => {
+        if (item.getAttribute('href') === targetHref) {
+            item.classList.add('active');
+        } else {
+            item.classList.remove('active');
+        }
+    });
+}
 
 // --- 3. Video Demo Modal Control Engines ---
 const videoModal = document.getElementById('videoModal');
