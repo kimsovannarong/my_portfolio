@@ -642,6 +642,13 @@ h2::before {
     display: inline-block;
 }
 
+.btn-cert-img {
+    width: 36px;          
+    height: 36px;
+    object-fit: contain;
+    display: inline-block;
+}
+
 .btn-img {
     width: 45px;          
     height: 45px;
