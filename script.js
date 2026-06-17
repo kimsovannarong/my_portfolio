@@ -150,6 +150,40 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// --- 5. Mobile Hamburger Drawer Control Engine ---
+const hamburgerToggle = document.getElementById('hamburgerToggle');
+const navMenu = document.getElementById('navMenu');
+const navbarContainer = document.querySelector('.navbar');
+
+if (hamburgerToggle && navMenu) {
+    hamburgerToggle.addEventListener('click', (e) => {
+        e.stopPropagation(); // Stop trigger from hitting global body targets
+        hamburgerToggle.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        if (navbarContainer) navbarContainer.classList.toggle('mobile-expanded');
+    });
+}
+
+// Automatically snap close the mobile drawer view framework once a link tracking action completes
+document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', () => {
+        if (hamburgerToggle && hamburgerToggle.classList.contains('active')) {
+            hamburgerToggle.classList.remove('active');
+            navMenu.classList.remove('active');
+            if (navbarContainer) navbarContainer.classList.remove('mobile-expanded');
+        }
+    });
+});
+
+// Close drawer if user clicks outside of the navbar area entirely
+window.addEventListener('click', (e) => {
+    if (navMenu && navMenu.classList.contains('active') && !navbarContainer.contains(e.target)) {
+        hamburgerToggle.classList.remove('active');
+        navMenu.classList.remove('active');
+        navbarContainer.classList.remove('mobile-expanded');
+    }
+});
+
 // Close / Hide toast notification routine
 function closeToast() {
     document.getElementById('comingSoonToast').classList.remove('show');

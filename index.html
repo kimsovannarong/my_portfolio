@@ -13,24 +13,32 @@
 <body>
 
     <div class="nav-wrapper">
-        <nav class="navbar">
+    <nav class="navbar">
+        <a href="#home" class="nav-logo">
+            <div class="logo-container">
+  <span class="logo-icon">&lt;/&gt;</span>
+  <span class="logo-text">Kim Sovannarong</span>
+</div>
+        </a>
+
+        <button class="hamburger-toggle" id="hamburgerToggle" aria-label="Toggle navigation menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <div class="nav-interactive-group" id="navMenu">
             <div class="nav-group">
-                <a href="#about" class="nav-item active">About Me</a>
+                <a href="#about" class="nav-item">About</a>
                 <a href="#skills" class="nav-item">Skills</a>
-            </div>
-
-            <div class="nav-logo">
-                <img src="assets/logo/coding-logo.svg" alt="Kim Sovannarong Logo" class="brand-logo-img">
-                <span>Kim Sovannarong</span>
-            </div>
-
-            <div class="nav-group">
                 <a href="#projects" class="nav-item">Projects</a>
                 <a href="#contact" class="nav-item">Contact</a>
-                <button class="theme-toggle" id="themeBtn" aria-label="Toggle Theme">🌙</button>
             </div>
-        </nav>
-    </div>
+            
+            <button class="theme-toggle" id="themeBtn">🌙</button>
+        </div>
+    </nav>
+</div>
 
     <div class="container">
         <header id="about" class="section-target">
