@@ -184,6 +184,48 @@ window.addEventListener('click', (e) => {
     }
 });
 
+// --- 6. Scroll Reveal Animation Engine ---
+const scrollRevealElements = document.querySelectorAll('.reveal-on-scroll');
+
+const revealOptions = {
+    root: null,
+    rootMargin: '0px 0px -10% 0px', // Triggers slightly before element enters the frame fully
+    threshold: 0.05
+};
+
+const revealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target); // Stops tracking once animated to save memory
+        }
+    });
+}, revealOptions);
+
+scrollRevealElements.forEach(el => revealObserver.observe(el));
+
+// --- 7. Horizontal Scroll Reveal Engine ---
+document.addEventListener("DOMContentLoaded", () => {
+    const horizontalCards = document.querySelectorAll('.reveal-horizontal');
+
+    const horizontalOptions = {
+        root: null,
+        rootMargin: '0px 0px -12% 0px', // Triggers right before entering view
+        threshold: 0.05
+    };
+
+    const horizontalObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Optimize memory by stopping watch once visible
+            }
+        });
+    }, horizontalOptions);
+
+    horizontalCards.forEach(card => horizontalObserver.observe(card));
+});
+
 // Close / Hide toast notification routine
 function closeToast() {
     document.getElementById('comingSoonToast').classList.remove('show');
